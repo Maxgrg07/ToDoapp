@@ -5,9 +5,12 @@ const { body, validationResult } = require("express-validator");
 const User = require("../model/user");
 const jwt = require("jsonwebtoken");
 
+// Authentication
+//
+
 router.post(
   "/",
-
+  //Inline validation of Express
   body("password")
     .exists()
     .isString()

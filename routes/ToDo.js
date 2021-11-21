@@ -6,6 +6,7 @@ const { body, validationResult } = require("express-validator");
 const ToDoList = require("../model/ToDoList");
 const { auth, Permission, DeletePermission } = require("../middleware/auth");
 
+//posting ToDOList
 router.post(
   "/",
   body("title").isString(),
@@ -32,6 +33,7 @@ router.post(
   }
 );
 
+// for getting list of all the todolist
 router.get("/", async (req, res) => {
   try {
     await ToDoList.find({}, (error, ToDoList) => {
@@ -48,6 +50,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+//For deleting todolist
 router.delete("/:id", auth, DeletePermission, async (req, res) => {
   const id = req.params.id;
   try {
@@ -60,6 +63,8 @@ router.delete("/:id", auth, DeletePermission, async (req, res) => {
     return res.status(404).json({ status: "error", message: ex.message });
   }
 });
+
+//For updating todolist
 
 router.put("/:id", auth, Permission, async (req, res) => {
   const id = req.params.id;
